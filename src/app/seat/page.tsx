@@ -1,36 +1,11 @@
 'use client';
 
-import { DefaultEventsMap } from '@socket.io/component-emitter';
-import { useState, useEffect } from 'react';
-import io, { Socket } from 'socket.io-client';
+import { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
-
-let socket: Socket<DefaultEventsMap, DefaultEventsMap>;
 
 const SeatManager = () => {
   const [seats, setSeats] = useState<boolean[]>(Array(10).fill(false));
   const [seatTimers, setSeatTimers] = useState<number[]>(Array(10).fill(0)); // 滞在時間
-
-  useEffect(() => {
-    // WebSocketサーバーに接続
-    socket = io();
-
-    // 状態更新を受信
-    socket.on(
-      'seat-update',
-      (seatData: { seats: boolean[]; seatTimers: number[] }) => {
-        setSeats(seatData.seats);
-        setSeatTimers(seatData.seatTimers);
-      }
-    );
-
-    // コンポーネントがアンマウントされたら接続を解除
-    return () => {
-      if (socket) {
-        socket.disconnect();
-      }
-    };
-  }, []);
 
   // 席の状態を切替え
   const toggleSeat = (index: number) => {
@@ -45,8 +20,6 @@ const SeatManager = () => {
       newSeatTimers[index] = Date.now(); // 現在時刻を記録
     }
 
-    // サーバーに状態を送信
-    socket.emit('seat-update', { seats: newSeats, seatTimers: newSeatTimers });
     setSeats(newSeats);
     setSeatTimers(newSeatTimers);
   };
