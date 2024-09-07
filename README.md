@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
+<samp>
 
-## Getting Started
+# ADA2nd 課題
 
-First, run the development server:
+💜  No.05  お天気アプリ(WebAPI) 💜
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+</samp>
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 1.プロダクト名
 
-## Learn More
+レストランのテーブル管理ボード
 
-To learn more about Next.js, take a look at the following resources:
+### 2.課題内容（どんな作品？）
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 某料理店の常連兼副業スタッフである友人より依頼を受けて作り始めたテーブル管理ボードの試作です。
+- シェフが独立直後のため、満席時は近くの店舗にお手伝いをお願いしているとのこと。
+- 来店状況を共有でき、困った時はヘルプボタン1クリックでLINEグループに通知がいく仕組みとなっています。
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 3.DEMO
 
-## Deploy on Vercel
+- https://kadai05-api.vercel.app/seat
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 4.作ったアプリケーション用のIDまたはPasswordがある場合
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- なし
+
+### 5.工夫した点・こだわった点
+
+- 通知に気づきやすいツールとしてLINEを選びました。APIは、LINE Notifyを使用。
+- 席ごとに滞在時間が表示されます。
+- スマホで使うことを想定し、シンプルな画面、簡単な操作となるよう進めているところです。
+
+### 6.難しかった点・次回トライしたいこと(又は機能)
+
+- 格闘中：WebSocketサーバーの作成（Socket.io）←リアルタイムでログを残したい
+- 修正予定：店舗の雰囲気やテーブル配置にあわせたデザインに！
+- 追加予定：アカウント管理を加えて編集権限・閲覧権限を区分
+
+### 7.次回ミニ講義で聞きたいこと
+
+- APIに限らずですが、あまりAPIを使用するとその提供終了時に困ることになるかと思います。 そういた面で気をつける点や工夫できることがあれば教えていただきたいです。
+
+### 8.フリー項目（感想、シェアしたいこと等なんでも）
+
+- 使用技術関連
+  - [LINE Notify](https://notify-bot.line.me/ja/) 
