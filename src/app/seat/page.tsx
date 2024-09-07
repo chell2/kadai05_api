@@ -78,7 +78,7 @@ const SeatManager = () => {
     <div className="bg-background text-primary min-h-screen p-4 font-stylish">
       <Toaster />
       <h1 className="text-3xl font-light mb-6 text-primary">
-        レストラン🍷テーブル管理ボード
+        TABLE VIEW <small>for restaurant Note🍷</small>
       </h1>
 
       <div className="grid grid-cols-5 gap-4 mb-6">
