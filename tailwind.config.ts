@@ -9,11 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: '#668863', // ミディアムグリーン
-        secondary: '#b6c0a8', // ペールグリーン
-        accent: '#b38a59', // ウォームベージュ
-        neutral: '#edefea', // ライトグレー
-        background: '#ffffff', // ホワイトバックグラウンド
+        primary: '#668863',
+        secondary: '#b6c0a8',
+        accent: '#b38a59',
+        neutral: '#efe8dd',
+        background: '#ffffff',
       },
       fontFamily: {
         stylish: ['"Helvetica Neue"', 'Arial', 'sans-serif'],
