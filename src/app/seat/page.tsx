@@ -52,8 +52,8 @@ const SeatManager = () => {
           position: 'top-center',
           duration: 6000,
           style: {
-            background: '#668863',
-            color: '#edefea',
+            background: '#b6c0a8',
+            color: '#000',
           },
         });
       } else {
