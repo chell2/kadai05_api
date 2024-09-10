@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import { FaUser, FaChair } from 'react-icons/fa';
+import NotifyButton from '@/app/components/NotifyButton';
 
 const SeatManager = () => {
-  const [seats, setSeats] = useState<boolean[]>(Array(12).fill(false)); // 椅子の数を12に拡張
+  const [seats, setSeats] = useState<boolean[]>(Array(12).fill(false));
   const [seatTimers, setSeatTimers] = useState<number[]>(Array(12).fill(0)); // 滞在時間
 
   // 席の状態を切替え
@@ -48,7 +49,7 @@ const SeatManager = () => {
 
       if (response.ok) {
         toast.success('お手伝いをお願いしたよ！🎉', {
-          position: 'top-left',
+          position: 'top-center',
           duration: 6000,
           style: {
             background: '#668863',
@@ -57,7 +58,7 @@ const SeatManager = () => {
         });
       } else {
         toast.error('送信エラー！ごめんー😣', {
-          position: 'top-left',
+          position: 'top-center',
           duration: 6000,
           style: {
             background: '#b38a59',
@@ -67,7 +68,7 @@ const SeatManager = () => {
       }
     } catch (error) {
       toast.error('送信エラー！ごめんー😣', {
-        position: 'top-left',
+        position: 'top-center',
         duration: 6000,
         style: {
           background: '#b38a59',
@@ -86,45 +87,20 @@ const SeatManager = () => {
             TABLE VIEW <br />
             <small>for restaurant Note🍷</small>
           </h1>
-          <button
-            onClick={handleHelpClick}
-            className="bg-primary text-neutral p-3 rounded-lg transition-all duration-300 hover:brightness-90"
-          >
-            Help
-          </button>
+          <div>
+            <NotifyButton />
+            <button
+              onClick={handleHelpClick}
+              className="bg-primary text-neutral ml-6 p-3 rounded-lg transition-all duration-300 hover:brightness-90"
+            >
+              Help
+            </button>
+          </div>
         </div>
 
         <div className="flex justify-center">
           <div className="w-full max-w-screen-lg px-4">
-            {/* カウンター */}
-            <div className="bg-neutral shadow-md rounded-md w-full h-10 mt-4 mb-2 flex-grow"></div>
-            {/* カウンター座席 */}
-            <div className="grid grid-cols-8 gap-1 mb-6">
-              {seats.slice(0, 8).map((isOccupied, index) => (
-                <div
-                  key={index}
-                  onClick={() => toggleSeat(index)}
-                  className={`w-10 h-10 rounded-full border flex items-center justify-center cursor-pointer transition-colors duration-300 ${
-                    isOccupied
-                      ? 'bg-accent shadow-md hover:brightness-90 text-neutral'
-                      : 'bg-secondary shadow-md hover:brightness-90 text-black'
-                  }`}
-                >
-                  {isOccupied ? (
-                    <div className="flex flex-col items-center">
-                      <FaUser />
-                      <span className="text-xs">
-                        {`${calculateStayTime(seatTimers[index])}`}
-                      </span>
-                    </div>
-                  ) : (
-                    <FaChair />
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <div className="flex items-center justify-between mt-10">
+            <div className="flex items-center justify-between mt-6 mb-20">
               {/* テーブル1 */}
               <div className="flex items-center">
                 {/* テーブル座席左 */}
@@ -147,14 +123,14 @@ const SeatManager = () => {
                           </span>
                         </div>
                       ) : (
-                        <FaChair />
+                        <FaChair style={{ transform: 'rotate(-90deg)' }} />
                       )}
                     </div>
                   ))}
                 </div>
 
                 {/* テーブル */}
-                <div className="bg-neutral shadow-md w-14 h-32 rounded-md mx-4"></div>
+                <div className="bg-neutral shadow-md w-14 h-28 rounded-md mx-1"></div>
 
                 {/* テーブル座席右 */}
                 <div className="flex flex-col space-y-2">
@@ -176,7 +152,7 @@ const SeatManager = () => {
                           </span>
                         </div>
                       ) : (
-                        <FaChair />
+                        <FaChair style={{ transform: 'rotate(90deg)' }} />
                       )}
                     </div>
                   ))}
@@ -205,14 +181,14 @@ const SeatManager = () => {
                           </span>
                         </div>
                       ) : (
-                        <FaChair />
+                        <FaChair style={{ transform: 'rotate(-90deg)' }} />
                       )}
                     </div>
                   ))}
                 </div>
 
                 {/* テーブル */}
-                <div className="bg-neutral shadow-md w-14 h-32 rounded-md mx-4"></div>
+                <div className="bg-neutral shadow-md w-14 h-28 rounded-md mx-1"></div>
 
                 {/* テーブル座席右 */}
                 <div className="flex flex-col space-y-2">
@@ -234,13 +210,42 @@ const SeatManager = () => {
                           </span>
                         </div>
                       ) : (
-                        <FaChair />
+                        <FaChair style={{ transform: 'rotate(90deg)' }} />
                       )}
                     </div>
                   ))}
                 </div>
               </div>
             </div>
+
+            {/* カウンター座席 */}
+            <div className="flex justify-between gap-1 mt-6 mb-1">
+              {seats.slice(0, 8).map((isOccupied, index) => (
+                <div
+                  key={index}
+                  onClick={() => toggleSeat(index)}
+                  className={`w-10 h-10 rounded-full border flex items-center justify-center cursor-pointer transition-colors duration-300 ${
+                    isOccupied
+                      ? 'bg-accent shadow-md hover:brightness-90 text-neutral'
+                      : 'bg-secondary shadow-md hover:brightness-90 text-black'
+                  }`}
+                >
+                  {isOccupied ? (
+                    <div className="flex flex-col items-center">
+                      <FaUser />
+                      <span className="text-xs">
+                        {`${calculateStayTime(seatTimers[index])}`}
+                      </span>
+                    </div>
+                  ) : (
+                    <FaChair />
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* カウンター */}
+            <div className="bg-neutral shadow-md rounded-md w-full h-14 mt-0 mb-2 flex-grow"></div>
           </div>
         </div>
       </div>

@@ -100,6 +100,8 @@
 //   );
 // }
 
+import NotifyButton from './components/NotifyButton';
+  
 export default function Home() {
   return (
     <div className="bg-white text-primary min-h-screen">
@@ -111,6 +113,7 @@ export default function Home() {
         <button className="bg-primary text-neutral hover:bg-secondary p-4 rounded">
           Click Me
         </button>
+        <NotifyButton />
 
         <div className="mt-4 p-6 bg-neutral rounded">
           <p className="text-primary">This is a content box.</p>
