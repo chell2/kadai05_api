@@ -1,29 +1,23 @@
 import { useState, useEffect } from 'react';
-import { auth } from '../firebaseConfig';
+import { auth, db } from '../firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
-
-type UserRole = 'admin' | 'editor' | 'viewer';
-
-interface User {
-  uid: string;
-  email: string;
-  role: UserRole;
-}
+import { doc, getDoc } from 'firebase/firestore';
 
 export const useAuth = () => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      if (firebaseUser) {
-        // Firebaseユーザーの追加情報を取得（例：Firestoreからroleを取得）
-        const userRole: UserRole = 'editor'; // Firestoreからrole情報を取得する処理を追加
-        setUser({
-          uid: firebaseUser.uid,
-          email: firebaseUser.email || '',
-          role: userRole,
-        });
+    const unsubscribe = onAuthStateChanged(auth, async (authUser) => {
+      if (authUser) {
+        const userDoc = doc(db, `users/${authUser.uid}`);
+        const docSnap = await getDoc(userDoc);
+
+        if (docSnap.exists()) {
+          setUser({ ...authUser, ...docSnap.data() });
+        } else {
+          setUser(authUser);
+        }
       } else {
         setUser(null);
       }

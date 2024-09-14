@@ -25,7 +25,7 @@ export default function SignUp() {
   const handleSignUp = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      router.push('/seat');
+      router.push('/');
     } catch (err) {
       setError('Failed to sign up');
     }
@@ -34,7 +34,7 @@ export default function SignUp() {
   const handleGoogleSignUp = async () => {
     try {
       await signInWithPopup(auth, provider);
-      router.push('/seat');
+      router.push('/');
     } catch (err) {
       setError('Failed to sign up with Google');
     }

@@ -1,5 +1,6 @@
 'use client';
 
+import { getAuth, signOut } from 'firebase/auth';
 import { useAuth } from '@/app/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
@@ -7,10 +8,20 @@ import { useEffect } from 'react';
 export default function Home() {
   const { user, loading } = useAuth();
   const router = useRouter();
+  const auth = getAuth();
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push('/signin');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   useEffect(() => {
     if (!loading && !user) {
-      router.push('/signup');
+      router.push('/signin');
     }
   }, [loading, user, router]);
 
@@ -18,30 +29,30 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Welcome, {user?.email}!</h1>
+      <h1>
+        Welcome, {user?.role} {user?.email}!
+      </h1>
+
+      <button onClick={handleLogout}>Logout</button>
 
       {user?.role === 'admin' && (
         <div>
-          <h2>Admin Settings</h2>
-          <p>You have access to the admin panel.</p>
-          {/* 管理者設定画面リンク */}
-          <a href="/settings">Go to Settings</a>
+          <h2>Adminページ</h2>
+          <a href="/seat">編集画面へ</a>
         </div>
       )}
 
       {user?.role === 'editor' && (
         <div>
-          <h2>Editor Section</h2>
-          <p>You can edit content here.</p>
-          {/* 編集可能なコンテンツ */}
+          <h2>Editorページ</h2>
+          <a href="/seat">編集画面へ</a>
         </div>
       )}
 
       {user?.role === 'viewer' && (
         <div>
-          <h2>Viewer Section</h2>
-          <p>You can view content here.</p>
-          {/* 閲覧のみのコンテンツ */}
+          <h2>Viewerページ</h2>
+          <p>閲覧のみ可能なページへ</p>
         </div>
       )}
     </div>

@@ -135,7 +135,7 @@ export default function SignIn() {
   const handleSignIn = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      router.push('/seat');
+      router.push('/');
     } catch (err) {
       setError('Failed to sign in');
     }
@@ -144,7 +144,7 @@ export default function SignIn() {
   const handleGoogleSignIn = async () => {
     try {
       await signInWithPopup(auth, provider);
-      router.push('/seat');
+      router.push('/');
     } catch (err) {
       setError('Failed to sign in with Google');
     }
