@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import { FaUser, FaChair } from 'react-icons/fa';
 import NotifyButton from '@/app/components/NotifyButton';
+import SignOutButton from '@/app/components/SignOutButton';
 import { saveSeatData, getSeatData } from '@/app/utils/seatService';
 import { calculateStayTime } from '@/app/utils/calculateStayTime';
 
@@ -97,6 +98,7 @@ const SeatManager = () => {
             >
               Help
             </button>
+            <SignOutButton />
           </div>
         </div>
 

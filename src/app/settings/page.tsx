@@ -3,6 +3,7 @@
 import { useAuth } from '@/app/hooks/useAuth';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import SignOutButton from '@/app/components/SignOutButton';
 
 export default function Settings() {
   const { user, loading } = useAuth();
@@ -21,6 +22,7 @@ export default function Settings() {
       <h1>Admin Settings</h1>
       <p>This page is only accessible to administrators.</p>
       {/* 管理者設定内容 */}
+      <SignOutButton />
     </div>
   );
 }
