@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/app/firebaseConfig';
 import { FaUser, FaChair } from 'react-icons/fa';
+import SignOutButton from '@/app/components/SignOutButton';
 import { calculateStayTime } from '@/app/utils/calculateStayTime';
 
 const SeatViewer = () => {
@@ -33,6 +34,7 @@ const SeatViewer = () => {
             TABLE VIEW <br />
             <small>for restaurant Note🍷</small>
           </h1>
+          <SignOutButton />
         </div>
 
         <div className="flex justify-center">

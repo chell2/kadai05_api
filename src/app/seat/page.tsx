@@ -94,7 +94,7 @@ const SeatManager = () => {
             <NotifyButton />
             <button
               onClick={handleHelpClick}
-              className="bg-primary text-neutral ml-6 p-3 rounded-lg transition-all duration-300 hover:brightness-90"
+              className="bg-accent text-neutral m-2 p-3 rounded-lg transition-all duration-300 hover:brightness-90"
             >
               Help
             </button>
