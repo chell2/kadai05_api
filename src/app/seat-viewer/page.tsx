@@ -47,8 +47,8 @@ const SeatViewer = () => {
                       key={i}
                       className={`w-10 h-10 mb-2 shadow-md rounded-full border flex items-center justify-center cursor-pointer transition-colors duration-300 ${
                         seats[8 + i]
-                          ? 'bg-accent shadow-md hover:brightness-90 text-neutral'
-                          : 'bg-secondary shadow-md hover:brightness-90 text-black'
+                          ? 'bg-accent shadow-md text-neutral'
+                          : 'bg-secondary shadow-md text-black'
                       }`}
                     >
                       {seats[8 + i] ? (
@@ -75,8 +75,8 @@ const SeatViewer = () => {
                       key={i}
                       className={`w-10 h-10 mb-2 shadow-md rounded-full border flex items-center justify-center cursor-pointer transition-colors duration-300 ${
                         seats[10 + i]
-                          ? 'bg-accent shadow-md hover:brightness-90 text-neutral'
-                          : 'bg-secondary shadow-md hover:brightness-90 text-black'
+                          ? 'bg-accent shadow-md text-neutral'
+                          : 'bg-secondary shadow-md text-black'
                       }`}
                     >
                       {seats[10 + i] ? (
@@ -103,8 +103,8 @@ const SeatViewer = () => {
                       key={i}
                       className={`w-10 h-10 mb-2 shadow-md rounded-full border flex items-center justify-center cursor-pointer transition-colors duration-300 ${
                         seats[12 + i]
-                          ? 'bg-accent shadow-md hover:brightness-90 text-neutral'
-                          : 'bg-secondary shadow-md hover:brightness-90 text-black'
+                          ? 'bg-accent shadow-md text-neutral'
+                          : 'bg-secondary shadow-md text-black'
                       }`}
                     >
                       {seats[12 + i] ? (
@@ -131,8 +131,8 @@ const SeatViewer = () => {
                       key={i}
                       className={`w-10 h-10 mb-2 shadow-md rounded-full border flex items-center justify-center cursor-pointer transition-colors duration-300 ${
                         seats[14 + i]
-                          ? 'bg-accent shadow-md hover:brightness-90 text-neutral'
-                          : 'bg-secondary shadow-md hover:brightness-90 text-black'
+                          ? 'bg-accent shadow-md text-neutral'
+                          : 'bg-secondary shadow-md text-black'
                       }`}
                     >
                       {seats[14 + i] ? (
@@ -158,8 +158,8 @@ const SeatViewer = () => {
                   key={index}
                   className={`w-10 h-10 rounded-full border flex items-center justify-center cursor-pointer transition-colors duration-300 ${
                     isOccupied
-                      ? 'bg-accent shadow-md hover:brightness-90 text-neutral'
-                      : 'bg-secondary shadow-md hover:brightness-90 text-black'
+                      ? 'bg-accent shadow-md text-neutral'
+                      : 'bg-secondary shadow-md text-black'
                   }`}
                 >
                   {isOccupied ? (
