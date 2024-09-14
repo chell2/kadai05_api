@@ -53,7 +53,7 @@ export default function SignUp() {
       />
       <div className="relative mb-4">
         <input
-          type={showPassword ? 'text' : 'password'} // Toggle between 'text' and 'password'
+          type={showPassword ? 'text' : 'password'}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
@@ -61,7 +61,7 @@ export default function SignUp() {
         />
         <button
           type="button"
-          onClick={() => setShowPassword(!showPassword)} // Toggle visibility
+          onClick={() => setShowPassword(!showPassword)}
           className="absolute inset-y-0 right-0 flex items-center pr-3"
         >
           {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}

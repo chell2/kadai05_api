@@ -1,19 +1,26 @@
 'use client';
 
 import { useAuth } from '@/app/hooks/useAuth';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function Home() {
   const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/signup');
+    }
+  }, [loading, user, router]);
 
   if (loading) return <p>Loading...</p>;
 
-  if (!user) return <p>Please log in to access this page.</p>;
-
   return (
     <div>
-      <h1>Welcome, {user.email}!</h1>
+      <h1>Welcome, {user?.email}!</h1>
 
-      {user.role === 'admin' && (
+      {user?.role === 'admin' && (
         <div>
           <h2>Admin Settings</h2>
           <p>You have access to the admin panel.</p>
@@ -22,7 +29,7 @@ export default function Home() {
         </div>
       )}
 
-      {user.role === 'editor' && (
+      {user?.role === 'editor' && (
         <div>
           <h2>Editor Section</h2>
           <p>You can edit content here.</p>
@@ -30,7 +37,7 @@ export default function Home() {
         </div>
       )}
 
-      {user.role === 'viewer' && (
+      {user?.role === 'viewer' && (
         <div>
           <h2>Viewer Section</h2>
           <p>You can view content here.</p>
