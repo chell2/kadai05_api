@@ -8,11 +8,12 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from 'firebase/auth';
-import { app } from '@/app/firebaseConfig';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '@/app/firebaseConfig';
 import { FcGoogle } from 'react-icons/fc';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-const auth = getAuth(app);
+const auth = getAuth();
 const provider = new GoogleAuthProvider();
 
 export default function SignUp() {
@@ -22,9 +23,28 @@ export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
+  async function addUserToFirestore(user: { uid: string; email: any }) {
+    const userRef = doc(db, 'users', user.uid);
+    try {
+      await setDoc(userRef, {
+        email: user.email,
+        role: 'viewer',
+      });
+      console.log('User added to Firestore');
+    } catch (err) {
+      console.error('Error adding user to Firestore: ', err);
+    }
+  }
+
   const handleSignUp = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+      await addUserToFirestore(user);
       router.push('/');
     } catch (err) {
       setError('Failed to sign up');
@@ -33,10 +53,14 @@ export default function SignUp() {
 
   const handleGoogleSignUp = async () => {
     try {
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      console.log(user.uid, user.email);
+      await addUserToFirestore(user);
       router.push('/');
     } catch (err) {
       setError('Failed to sign up with Google');
+      console.error(err);
     }
   };
 
