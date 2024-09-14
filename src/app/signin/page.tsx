@@ -120,6 +120,7 @@ import {
 } from 'firebase/auth';
 import { app } from '@/app/firebaseConfig';
 import { FcGoogle } from 'react-icons/fc';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -128,6 +129,7 @@ export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleSignIn = async () => {
@@ -159,13 +161,22 @@ export default function SignIn() {
         placeholder="Email"
         className="mb-4 p-2 border rounded"
       />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        className="mb-4 p-2 border rounded"
-      />
+      <div className="relative mb-4">
+        <input
+          type={showPassword ? 'text' : 'password'}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          className="p-2 border rounded w-full"
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)}
+          className="absolute inset-y-0 right-0 flex items-center pr-3"
+        >
+          {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+        </button>
+      </div>
       <button
         onClick={handleSignIn}
         className="bg-blue-500 text-white px-4 py-2 rounded mb-4"

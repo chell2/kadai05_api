@@ -1,107 +1,5 @@
 'use client';
 
-// import { useState } from 'react';
-// import { auth } from '@/app/firebaseConfig';
-// import { createUserWithEmailAndPassword } from 'firebase/auth';
-// import { useRouter } from 'next/navigation';
-// import { useAuth } from '@/app/hooks/useAuth';
-
-// export default function SignUpPage() {
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [confirmPassword, setConfirmPassword] = useState('');
-//   const [error, setError] = useState<string | null>(null);
-//   const { user, loading } = useAuth();
-//   const router = useRouter();
-
-//   // サインアップ処理
-//   const handleSignUp = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setError(null);
-
-//     if (password !== confirmPassword) {
-//       setError('Passwords do not match');
-//       return;
-//     }
-
-//     try {
-//       await createUserWithEmailAndPassword(auth, email, password);
-//       router.push('/'); // サインアップ成功後にホームページにリダイレクト
-//     } catch (error: any) {
-//       setError(error.message);
-//     }
-//   };
-
-//   // ログイン済みの場合のリダイレクト
-//   if (!loading && user) {
-//     router.push('/');
-//   }
-
-//   return (
-//     <div className="flex items-center justify-center min-h-screen bg-gray-100">
-//       <div className="bg-white p-6 rounded-md shadow-md w-full max-w-md">
-//         <h2 className="text-2xl font-semibold mb-4 text-center">Sign Up</h2>
-//         {error && (
-//           <div className="bg-red-100 text-red-600 p-2 mb-4 rounded-md">
-//             {error}
-//           </div>
-//         )}
-//         <form onSubmit={handleSignUp}>
-//           <div className="mb-4">
-//             <label className="block text-gray-700">Email</label>
-//             <input
-//               type="email"
-//               value={email}
-//               onChange={(e) => setEmail(e.target.value)}
-//               required
-//               className="w-full p-2 border border-gray-300 rounded-md"
-//               placeholder="Enter your email"
-//             />
-//           </div>
-
-//           <div className="mb-4">
-//             <label className="block text-gray-700">Password</label>
-//             <input
-//               type="password"
-//               value={password}
-//               onChange={(e) => setPassword(e.target.value)}
-//               required
-//               className="w-full p-2 border border-gray-300 rounded-md"
-//               placeholder="Enter your password"
-//             />
-//           </div>
-
-//           <div className="mb-4">
-//             <label className="block text-gray-700">Confirm Password</label>
-//             <input
-//               type="password"
-//               value={confirmPassword}
-//               onChange={(e) => setConfirmPassword(e.target.value)}
-//               required
-//               className="w-full p-2 border border-gray-300 rounded-md"
-//               placeholder="Confirm your password"
-//             />
-//           </div>
-
-//           <button
-//             type="submit"
-//             className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600 transition-colors"
-//           >
-//             Sign Up
-//           </button>
-//         </form>
-
-//         <p className="mt-4 text-center text-gray-600">
-//           Already have an account?{' '}
-//           <a href="/login" className="text-blue-500 hover:underline">
-//             Log in here
-//           </a>
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }
-
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
@@ -112,6 +10,7 @@ import {
 } from 'firebase/auth';
 import { app } from '@/app/firebaseConfig';
 import { FcGoogle } from 'react-icons/fc';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
@@ -120,6 +19,7 @@ export default function SignUp() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
 
   const handleSignUp = async () => {
@@ -151,13 +51,22 @@ export default function SignUp() {
         placeholder="Email"
         className="mb-4 p-2 border rounded"
       />
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        className="mb-4 p-2 border rounded"
-      />
+      <div className="relative mb-4">
+        <input
+          type={showPassword ? 'text' : 'password'} // Toggle between 'text' and 'password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          className="p-2 border rounded w-full"
+        />
+        <button
+          type="button"
+          onClick={() => setShowPassword(!showPassword)} // Toggle visibility
+          className="absolute inset-y-0 right-0 flex items-center pr-3"
+        >
+          {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+        </button>
+      </div>
       <button
         onClick={handleSignUp}
         className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
