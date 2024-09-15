@@ -7,10 +7,16 @@ import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { db } from '@/app/firebaseConfig';
 import SettingsNavbar from '../components/SettingsNavbar';
 
+interface User {
+  id: string;
+  email: string;
+  role: string;
+}
+
 export default function Settings() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [roleChanges, setRoleChanges] = useState<{ [key: string]: string }>({});
 
@@ -24,9 +30,9 @@ export default function Settings() {
     const fetchUsers = async () => {
       try {
         const querySnapshot = await getDocs(collection(db, 'users'));
-        const usersList = querySnapshot.docs.map((doc) => ({
+        const usersList: User[] = querySnapshot.docs.map((doc) => ({
           id: doc.id,
-          ...doc.data(),
+          ...(doc.data() as { email: string; role: string }),
         }));
         setUsers(usersList);
         // 初期状態で各ユーザーのロールを roleChanges にセット
