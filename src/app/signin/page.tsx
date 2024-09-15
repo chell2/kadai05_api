@@ -195,6 +195,9 @@ export default function SignIn() {
               Sign in with Google
             </button>
           </div>
+          <a href="/signup" className="mt-4 text-center hover:underline">
+            <small>*新規登録はこちら</small>
+          </a>
         </div>
       </div>
     </div>

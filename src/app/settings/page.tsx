@@ -12,7 +12,7 @@ export default function Settings() {
   const router = useRouter();
   const [users, setUsers] = useState<any[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
-  const [roleChanges, setRoleChanges] = useState<{ [key: string]: string }>({}); // 各ユーザーの選択ロールを管理
+  const [roleChanges, setRoleChanges] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     if (!loading && (!user || user.role !== 'admin')) {
@@ -79,9 +79,7 @@ export default function Settings() {
           <SignOutButton />
         </div>
         <div className="bg-neutral rounded-lg shadow-lg p-6">
-          <h2 className="text-primary text-2xl font-medium mb-4">
-            ユーザー権限の編集
-          </h2>
+          <h2 className="text-primary font-light mb-4">ユーザー権限の編集</h2>
           <table className="w-full text-left border-collapse">
             <thead>
               <tr>

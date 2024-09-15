@@ -109,6 +109,9 @@ export default function SignUp() {
               Sign up with Google
             </button>
           </div>
+          <a href="/signin" className="mt-4 text-center hover:underline">
+            <small>*登録済みの方はこちら</small>
+          </a>
         </div>
       </div>
     </div>
