@@ -65,45 +65,52 @@ export default function SignUp() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-3xl mb-6">Sign Up</h1>
-      {error && <p className="text-red-500">{error}</p>}
-      <input
-        type="email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="Email"
-        className="mb-4 p-2 border rounded"
-      />
-      <div className="relative mb-4">
-        <input
-          type={showPassword ? 'text' : 'password'}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          className="p-2 border rounded w-full"
-        />
-        <button
-          type="button"
-          onClick={() => setShowPassword(!showPassword)}
-          className="absolute inset-y-0 right-0 flex items-center pr-3"
-        >
-          {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-        </button>
+    <div className="flex items-center justify-center min-h-screen bg-white font-stylish text-primary">
+      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-3xl mb-6 font-light">Sign Up</h1>
+          {error && <p className="text-red-500">{error}</p>}
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            className="mb-4 p-2 border border-gray-200 rounded-lg w-2/3"
+          />
+          <div className="relative mb-4 w-2/3">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              className="p-2 border border-gray-200 rounded-lg w-full"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute inset-y-0 right-0 flex items-center pr-3"
+            >
+              {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={handleSignUp}
+              className="bg-primary text-neutral hover:brightness-90 px-4 py-2 rounded-lg w-full"
+            >
+              Sign Up
+            </button>
+            <div className="text-center">or</div>
+            <button
+              onClick={handleGoogleSignUp}
+              className="bg-white hover:brightness-90 border border-secondary px-4 py-2 rounded-lg flex items-center"
+            >
+              <FcGoogle className="mr-2" />
+              Sign up with Google
+            </button>
+          </div>
+        </div>
       </div>
-      <button
-        onClick={handleSignUp}
-        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
-      >
-        Sign Up
-      </button>
-      <button
-        onClick={handleGoogleSignUp}
-        className="bg-white text-black border px-4 py-2 rounded flex items-center"
-      >
-        <FcGoogle className="mr-2" />
-        Sign up with Google
-      </button>
     </div>
   );
 }
