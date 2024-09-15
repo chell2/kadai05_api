@@ -53,7 +53,7 @@
 - 格闘中：WebSocketサーバーの作成（Socket.io）←リアルタイムの反映は継続課題
 - ~~修正予定：店舗の雰囲気やテーブル配置にあわせたデザインに！~~ [済]
 - ~~追加予定：アカウント管理を加えて編集権限・閲覧権限を区分~~ [済]
-- 
+- 実はURLを直接入力すると権限外のページが見えてしまうのでどうにかしたい。
 
 ### 7.次回ミニ講義で聞きたいこと
 
@@ -63,4 +63,8 @@
 ### 8.フリー項目（感想、シェアしたいこと等なんでも）
 
 - 使用技術関連
+  - [App Router](https://nextjs.org/docs/app)
+  - [Vercel](https://vercel.com/)
   - [LINE Notify](https://notify-bot.line.me/ja/) 
+  - [Firebase Authentication](https://firebase.google.com/docs/auth?hl=ja) 
+  - [Firebase Cloud Firestore](https://firebase.google.com/docs/firestore?hl=ja) 

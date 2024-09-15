@@ -3,10 +3,9 @@
 import { useState, useEffect } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import { FaUser, FaChair } from 'react-icons/fa';
-import NotifyButton from '@/app/components/NotifyButton';
-import SignOutButton from '@/app/components/SignOutButton';
 import { saveSeatData, getSeatData } from '@/app/utils/seatService';
 import { calculateStayTime } from '@/app/utils/calculateStayTime';
+import Navbar from '@/app/components/Navbar';
 
 const SeatManager = () => {
   const [seats, setSeats] = useState<boolean[]>(Array(12).fill(false));
@@ -40,66 +39,16 @@ const SeatManager = () => {
     saveSeatData(newSeats, newSeatTimers); // Firestoreに保存
   };
 
-  const handleHelpClick = async () => {
-    try {
-      const response = await fetch('/api/line-notify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: 'お客さん増えた！誰か助けて〜！' }),
-      });
-
-      if (response.ok) {
-        toast.success('お手伝いをお願いしたよ！🎉', {
-          position: 'top-center',
-          duration: 6000,
-          style: {
-            background: '#b6c0a8',
-            color: '#000',
-          },
-        });
-      } else {
-        toast.error('送信エラー！ごめんー😣', {
-          position: 'top-center',
-          duration: 6000,
-          style: {
-            background: '#b38a59',
-            color: '#edefea',
-          },
-        });
-      }
-    } catch (error) {
-      toast.error('送信エラー！ごめんー😣', {
-        position: 'top-center',
-        duration: 6000,
-        style: {
-          background: '#b38a59',
-          color: '#edefea',
-        },
-      });
-    }
-  };
-
   return (
     <div className="bg-background text-primary min-h-screen p-4 font-stylish">
       <Toaster />
+      <Navbar />
       <div className="container mx-auto max-w-[600px]">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-light text-primary">
             TABLE VIEW <br />
             <small>for restaurant Note🍷</small>
           </h1>
-          <div>
-            <NotifyButton />
-            <button
-              onClick={handleHelpClick}
-              className="bg-accent text-neutral m-2 p-3 rounded-lg transition-all duration-300 hover:brightness-90"
-            >
-              Help
-            </button>
-            <SignOutButton />
-          </div>
         </div>
 
         <div className="flex justify-center">

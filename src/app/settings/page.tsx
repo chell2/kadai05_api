@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { collection, getDocs, updateDoc, doc } from 'firebase/firestore';
 import { db } from '@/app/firebaseConfig';
-import SignOutButton from '@/app/components/SignOutButton';
+import SettingsNavbar from '../components/SettingsNavbar';
 
 export default function Settings() {
   const { user, loading } = useAuth();
@@ -70,13 +70,13 @@ export default function Settings() {
 
   return (
     <div className="bg-background text-primary min-h-screen p-4 font-stylish">
+      <SettingsNavbar />
       <div className="container mx-auto max-w-[600px]">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-light text-primary">
             TABLE VIEW <br />
             <small>for restaurant Note🍷</small>
           </h1>
-          <SignOutButton />
         </div>
         <div className="bg-neutral rounded-lg shadow-lg p-6">
           <h2 className="text-primary font-light mb-4">ユーザー権限の編集</h2>
