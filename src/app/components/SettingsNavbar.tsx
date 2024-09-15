@@ -5,17 +5,17 @@ import SignOutButton from './SignOutButton';
 
 const SettingsNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const menuRef = useRef(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleClickOutside = (event) => {
+  const handleClickOutside = (event: MouseEvent) => {
     if (
       menuRef.current &&
-      !menuRef.current.contains(event.target) &&
-      !event.target.closest('.p-2')
+      !menuRef.current.contains(event.target as Node) &&
+      !(event.target as Element).closest('.p-2')
     ) {
       setIsMenuOpen(false);
     }
