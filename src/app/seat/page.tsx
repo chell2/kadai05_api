@@ -1,6 +1,8 @@
 'use client';
 
+import { useAuth } from '@/app/hooks/useAuth';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { Toaster, toast } from 'react-hot-toast';
 import { FaUser, FaChair } from 'react-icons/fa';
 import { saveSeatData, getSeatData } from '@/app/utils/seatService';
@@ -10,6 +12,17 @@ import Navbar from '@/app/components/Navbar';
 const SeatManager = () => {
   const [seats, setSeats] = useState<boolean[]>(Array(12).fill(false));
   const [seatTimers, setSeatTimers] = useState<number[]>(Array(12).fill(0));
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (
+      !loading &&
+      (!user || !['admin', 'editor'].includes(user?.role || ''))
+    ) {
+      router.push('/signin');
+    }
+  }, [user, loading, router]);
 
   useEffect(() => {
     // 初期データをFirestoreから取得

@@ -1,15 +1,28 @@
 'use client';
 
+import { useAuth } from '@/app/hooks/useAuth';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { db } from '@/app/firebaseConfig';
 import { FaUser, FaChair } from 'react-icons/fa';
-import SignOutButton from '@/app/components/SignOutButton';
+import ViewerSignOutButton from '@/app/components/ViewerSignOutButton';
 import { calculateStayTime } from '@/app/utils/calculateStayTime';
 
 const SeatViewer = () => {
   const [seats, setSeats] = useState<boolean[]>(Array(12).fill(false));
   const [seatTimers, setSeatTimers] = useState<number[]>(Array(12).fill(0));
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (
+      !loading &&
+      (!user || !['admin', 'editor', 'viewer'].includes(user?.role || ''))
+    ) {
+      router.push('/');
+    }
+  }, [user, loading, router]);
 
   useEffect(() => {
     const seatDocRef = doc(db, 'seats', 'currentStatus');
@@ -34,7 +47,7 @@ const SeatViewer = () => {
             TABLE VIEW <br />
             <small>for restaurant Note🍷</small>
           </h1>
-          <SignOutButton />
+          <ViewerSignOutButton />
         </div>
 
         <div className="flex justify-center">
