@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@media only screen and (orientation: portrait) {
+/* @media only screen and (orientation: portrait) {
   .rotate-message {
     display: flex;
     justify-content: center;
@@ -26,4 +26,4 @@
   .app-content {
     display: block; /* 横向きの場合は表示する */
   }
-}
+} */
