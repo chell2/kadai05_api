@@ -66,7 +66,7 @@ export default function SignUp() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-white font-stylish text-primary">
-      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+      <div className="bg-white p-6 rounded-lg shadow-md w-10/12 max-w-md">
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-3xl mb-6 font-light">Sign Up</h1>
           {error && <p className="text-red-500">{error}</p>}
