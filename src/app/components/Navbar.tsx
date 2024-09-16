@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import SignOutButton from './SignOutButton';
-import { Toaster, toast } from 'react-hot-toast';
+import HelpButton from './HelpButton';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -26,56 +26,10 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  const handleHelpClick = async () => {
-    try {
-      const response = await fetch('/api/line-notify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: 'お客さん増えた！誰か助けて〜！' }),
-      });
-
-      if (response.ok) {
-        toast.success('お手伝いをお願いしたよ！🎉', {
-          position: 'top-center',
-          duration: 6000,
-          style: {
-            background: '#b6c0a8',
-            color: '#000',
-          },
-        });
-      } else {
-        toast.error('送信エラー！ごめんー😣', {
-          position: 'top-center',
-          duration: 6000,
-          style: {
-            background: '#b38a59',
-            color: '#edefea',
-          },
-        });
-      }
-    } catch (error) {
-      toast.error('送信エラー！ごめんー😣', {
-        position: 'top-center',
-        duration: 6000,
-        style: {
-          background: '#b38a59',
-          color: '#edefea',
-        },
-      });
-    }
-  };
-
   return (
     <nav className="relative">
       <div className="absolute right-4 top-4 flex items-center space-x-4 z-50">
-        <button
-          onClick={handleHelpClick}
-          className="bg-accent text-neutral px-4 py-3 mr-2 rounded-lg transition-all duration-300 hover:brightness-90"
-        >
-          Help!!!
-        </button>
+        <HelpButton />
         <button onClick={toggleMenu} className="p-2">
           {isMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
