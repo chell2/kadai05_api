@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const sendNotification = async (message) => {
+export const sendNotification = async (message: any) => {
   try {
     const response = await axios.post('/api/line-notify', { message });
     return response.data;
