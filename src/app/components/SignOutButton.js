@@ -15,7 +15,7 @@ const SignOutButton = () => {
   };
   return (
     <button
-      className="bg-primary text-neutral hover:brightness-90 px-8 py-3 rounded-lg flex items-center space-x-2"
+      className="bg-primary text-fff hover:brightness-90 px-8 py-3 rounded-lg flex items-center space-x-2"
       onClick={handleLogout}
     >
       <FaSignOutAlt />

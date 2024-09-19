@@ -42,14 +42,14 @@ const SettingsNavbar = () => {
       >
         <ul className="space-y-4 mt-20 ml-2">
           <li>
-            <button className="bg-primary text-neutral hover:brightness-90 p-3 rounded-lg">
+            <button className="bg-primary text-fff hover:brightness-90 p-3 rounded-lg">
               <a href="/seat">
                 <small>テーブル状況の編集</small>
               </a>
             </button>
           </li>
           <li>
-            <button className="bg-primary text-neutral hover:brightness-90 p-3 rounded-lg">
+            <button className="bg-primary text-fff hover:brightness-90 p-3 rounded-lg">
               <a href="/seat-viewer">
                 <small>閲覧画面プレビュー</small>
               </a>

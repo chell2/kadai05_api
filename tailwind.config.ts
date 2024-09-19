@@ -13,7 +13,7 @@ const config: Config = {
         secondary: '#b6c0a8',
         accent: '#b38a59',
         neutral: '#efe8dd',
-        background: '#ffffff',
+        fff: '#ffffff',
       },
       fontFamily: {
         stylish: ['"Helvetica Neue"', 'Arial', 'sans-serif'],

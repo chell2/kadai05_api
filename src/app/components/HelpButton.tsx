@@ -16,8 +16,8 @@ const HelpButton = () => {
           position: 'top-center',
           duration: 6000,
           style: {
-            background: '#b6c0a8',
-            color: '#000',
+            background: '#fff',
+            color: '#7B3F61',
           },
         });
       } else {
@@ -45,7 +45,7 @@ const HelpButton = () => {
   return (
     <button
       onClick={handleHelpClick}
-      className="bg-accent text-neutral px-4 py-3 mr-2 rounded-lg transition-all duration-300 hover:brightness-90"
+      className="bg-[#7B3F61] text-fff px-4 py-3 mr-2 rounded-lg transition-all duration-300 hover:brightness-90"
     >
       Help!!!
     </button>

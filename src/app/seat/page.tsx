@@ -4,11 +4,13 @@ import { useAuth } from '@/app/hooks/useAuth';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Toaster, toast } from 'react-hot-toast';
-import { FaUser, FaChair } from 'react-icons/fa';
+import { FaUser, FaChair, FaRedoAlt } from 'react-icons/fa';
 import { saveSeatData, getSeatData } from '@/app/utils/seatService';
 import { calculateStayTime } from '@/app/utils/calculateStayTime';
 import Navbar from '@/app/components/Navbar';
 import RotateMessage from '../components/RotateMessage';
+import HelpButton from '../components/HelpButton';
+import ResetButton from '../components/ResetButton';
 
 const SeatManager = () => {
   const [seats, setSeats] = useState<boolean[]>(Array(12).fill(false));
@@ -53,6 +55,15 @@ const SeatManager = () => {
     saveSeatData(newSeats, newSeatTimers); // Firestoreに保存
   };
 
+  // 全席リセット
+  const resetAllSeats = () => {
+    const newSeats = Array(12).fill(false); // 全席を空席に
+    const newSeatTimers = Array(12).fill(0); // タイマーリセット
+    setSeats(newSeats);
+    setSeatTimers(newSeatTimers);
+    saveSeatData(newSeats, newSeatTimers); // Firestoreに保存
+  };
+
   return (
     <>
       {/* <div className="rotate-message">
@@ -68,8 +79,11 @@ const SeatManager = () => {
               TABLE VIEW <br />
               <small>for restaurant Note🍷</small>
             </h1>
+            <div className="flex justify-between items-center mt-2 mb-6">
+              <ResetButton onReset={resetAllSeats} />
+              <HelpButton />
+            </div>
           </div>
-
           <div className="flex justify-center">
             <div className="w-full max-w-screen-lg px-4">
               <div className="flex items-center justify-between mt-6 mb-20">

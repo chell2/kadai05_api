@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import SignOutButton from './SignOutButton';
-import HelpButton from './HelpButton';
+// import HelpButton from './HelpButton';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,7 +29,7 @@ const Navbar = () => {
   return (
     <nav className="relative">
       <div className="absolute right-4 top-4 flex items-center space-x-4 z-50">
-        <HelpButton />
+        {/* <HelpButton /> */}
         <button onClick={toggleMenu} className="p-2">
           {isMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
@@ -43,7 +43,7 @@ const Navbar = () => {
       >
         <ul className="space-y-4 mt-20 ml-2">
           <li>
-            <button className="bg-primary text-neutral hover:brightness-90 p-3 rounded-lg">
+            <button className="bg-primary text-fff hover:brightness-90 p-3 rounded-lg">
               <a href="/seat-viewer">
                 <small>閲覧画面プレビュー</small>
               </a>
