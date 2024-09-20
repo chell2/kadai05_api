@@ -9,7 +9,7 @@ import { saveSeatData, getSeatData } from '@/app/utils/seatService';
 import { calculateStayTime } from '@/app/utils/calculateStayTime';
 import Navbar from '@/app/components/Navbar';
 import RotateMessage from '../components/RotateMessage';
-import HelpButton from '../components/HelpButton';
+import HelpButton, { handleHelpClick } from '../components/HelpButton';
 import ResetButton from '../components/ResetButton';
 import ConfirmModal from '../components/ConfirmModal';
 
@@ -19,6 +19,9 @@ const SeatManager = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user, loading } = useAuth();
   const router = useRouter();
+  const [lastHelpCondition, setLastHelpCondition] = useState(null); // 最後に送った条件
+  const [seatsOccupied, setSeatsOccupied] = useState(0); // 占有されている席の数
+  const totalSeats = 100; // 座席の総数
 
   useEffect(() => {
     if (
@@ -55,6 +58,8 @@ const SeatManager = () => {
     setSeats(newSeats);
     setSeatTimers(newSeatTimers);
     saveSeatData(newSeats, newSeatTimers); // Firestoreに保存
+
+    checkSeatStatus(newSeats);
   };
 
   // 全席リセット
@@ -64,7 +69,24 @@ const SeatManager = () => {
     setSeats(newSeats);
     setSeatTimers(newSeatTimers);
     saveSeatData(newSeats, newSeatTimers); // Firestoreに保存
+    toast.success('お疲れさまでした！全席リセット〜🈳', {
+      position: 'top-center',
+      duration: 6000,
+      style: {
+        background: '#fff',
+        color: '#7B3F61',
+      },
+    });
     setIsModalOpen(false);
+  };
+
+  // 満席時のみ自動ヘルプ発動
+  const checkSeatStatus = (newSeats: boolean[]) => {
+    const occupiedSeats = newSeats.filter((seat) => seat).length;
+
+    if (occupiedSeats === 16) {
+      handleHelpClick();
+    }
   };
 
   return (
@@ -245,7 +267,7 @@ const SeatManager = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={resetAllSeats}
-        message="Are you sure you want to reset all seats?"
+        message="すべての席を空席に戻してよい？"
       />
     </>
   );

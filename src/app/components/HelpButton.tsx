@@ -1,47 +1,48 @@
 import { toast } from 'react-hot-toast';
 
-const HelpButton = () => {
-  const handleHelpClick = async () => {
-    try {
-      const response = await fetch('/api/line-notify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ message: 'お客さん増えた！誰か助けて〜！' }),
-      });
+// exportでhandleHelpClick関数も外部から呼び出せる
+export const handleHelpClick = async () => {
+  try {
+    const response = await fetch('/api/line-notify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ message: 'お客さん増えた！誰か助けて〜！' }),
+    });
 
-      if (response.ok) {
-        toast.success('お手伝いをお願いしたよ！🎉', {
-          position: 'top-center',
-          duration: 6000,
-          style: {
-            background: '#fff',
-            color: '#7B3F61',
-          },
-        });
-      } else {
-        toast.error('送信エラー！ごめんー😣', {
-          position: 'top-center',
-          duration: 6000,
-          style: {
-            background: '#b38a59',
-            color: '#edefea',
-          },
-        });
-      }
-    } catch (error) {
+    if (response.ok) {
+      toast.success('お手伝いをお願いしたよ！🎉', {
+        position: 'top-center',
+        duration: 6000,
+        style: {
+          background: '#fff',
+          color: '#7B3F61',
+        },
+      });
+    } else {
       toast.error('送信エラー！ごめんー😣', {
         position: 'top-center',
         duration: 6000,
         style: {
-          background: '#b38a59',
-          color: '#edefea',
+          background: '#fff',
+          color: '#7B3F61',
         },
       });
     }
-  };
+  } catch (error) {
+    toast.error('送信エラー！ごめんー😣', {
+      position: 'top-center',
+      duration: 6000,
+      style: {
+        background: '#fff',
+        color: '#7B3F61',
+      },
+    });
+  }
+};
 
+const HelpButton = () => {
   return (
     <button
       onClick={handleHelpClick}
