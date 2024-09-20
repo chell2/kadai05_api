@@ -11,10 +11,12 @@ import Navbar from '@/app/components/Navbar';
 import RotateMessage from '../components/RotateMessage';
 import HelpButton from '../components/HelpButton';
 import ResetButton from '../components/ResetButton';
+import ConfirmModal from '../components/ConfirmModal';
 
 const SeatManager = () => {
   const [seats, setSeats] = useState<boolean[]>(Array(12).fill(false));
   const [seatTimers, setSeatTimers] = useState<number[]>(Array(12).fill(0));
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { user, loading } = useAuth();
   const router = useRouter();
 
@@ -62,6 +64,7 @@ const SeatManager = () => {
     setSeats(newSeats);
     setSeatTimers(newSeatTimers);
     saveSeatData(newSeats, newSeatTimers); // Firestoreに保存
+    setIsModalOpen(false);
   };
 
   return (
@@ -80,7 +83,7 @@ const SeatManager = () => {
               <small>for restaurant Note🍷</small>
             </h1>
             <div className="flex justify-between items-center mt-2 mb-6">
-              <ResetButton onReset={resetAllSeats} />
+              <ResetButton onReset={() => setIsModalOpen(true)} />
               <HelpButton />
             </div>
           </div>
@@ -237,6 +240,13 @@ const SeatManager = () => {
         </div>
       </div>
       {/* </div> */}
+      {/* 確認モーダルを表示 */}
+      <ConfirmModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={resetAllSeats}
+        message="Are you sure you want to reset all seats?"
+      />
     </>
   );
 };
