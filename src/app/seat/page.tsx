@@ -14,8 +14,8 @@ import ResetButton from '../components/ResetButton';
 import ConfirmModal from '../components/ConfirmModal';
 
 const SeatManager = () => {
-  const [seats, setSeats] = useState<boolean[]>(Array(12).fill(false));
-  const [seatTimers, setSeatTimers] = useState<number[]>(Array(12).fill(0));
+  const [seats, setSeats] = useState<boolean[]>(Array(16).fill(false));
+  const [seatTimers, setSeatTimers] = useState<number[]>(Array(16).fill(0));
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user, loading } = useAuth();
   const router = useRouter();
@@ -77,8 +77,8 @@ const SeatManager = () => {
 
   // 全席リセット
   const resetAllSeats = () => {
-    const newSeats = Array(12).fill(false); // 全席を空席に
-    const newSeatTimers = Array(12).fill(0); // タイマーリセット
+    const newSeats = Array(16).fill(false); // 全席を空席に
+    const newSeatTimers = Array(16).fill(0); // タイマーリセット
     setSeats(newSeats);
     setSeatTimers(newSeatTimers);
     saveSeatData(newSeats, newSeatTimers); // Firestoreに保存
