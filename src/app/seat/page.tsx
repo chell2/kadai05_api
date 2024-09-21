@@ -62,6 +62,7 @@ const SeatManager = () => {
     checkSeatStatus(seats);
   };
 
+  // 座席の滞在時間をリアルタイム計算
   useEffect(() => {
     const interval = setInterval(() => {
       setSeatTimers((prevSeatTimers) =>

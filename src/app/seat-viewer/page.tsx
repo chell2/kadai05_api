@@ -11,8 +11,8 @@ import { calculateStayTime } from '@/app/utils/calculateStayTime';
 import RotateMessage from '../components/RotateMessage';
 
 const SeatViewer = () => {
-  const [seats, setSeats] = useState<boolean[]>(Array(12).fill(false));
-  const [seatTimers, setSeatTimers] = useState<number[]>(Array(12).fill(0));
+  const [seats, setSeats] = useState<boolean[]>(Array(16).fill(false));
+  const [seatTimers, setSeatTimers] = useState<number[]>(Array(16).fill(0));
   const { user, loading } = useAuth();
   const router = useRouter();
 
@@ -28,17 +28,28 @@ const SeatViewer = () => {
   useEffect(() => {
     const seatDocRef = doc(db, 'seats', 'currentStatus');
 
-    // Firestoreから座席データをリアルタイムで取得
+    // Firestoreから座席の使用状況をリアルタイム取得
     const unsubscribe = onSnapshot(seatDocRef, (docSnapshot) => {
       if (docSnapshot.exists()) {
         const data = docSnapshot.data();
-        setSeats(data?.seats || Array(12).fill(false));
-        setSeatTimers(data?.seatTimers || Array(12).fill(0));
+        setSeats(data?.seats || Array(16).fill(false));
+        setSeatTimers(data?.seatTimers || Array(16).fill(0));
       }
     });
 
     return () => unsubscribe();
   }, []);
+
+  // 座席の滞在時間をリアルタイム計算
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSeatTimers((prevSeatTimers) =>
+        prevSeatTimers.map((startTime, index) => (seats[index] ? startTime : 0))
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [seats]);
 
   return (
     <>
