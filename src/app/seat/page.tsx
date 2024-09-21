@@ -32,44 +32,41 @@ const SeatManager = () => {
   useEffect(() => {
     // 初期データをFirestoreから取得
     const fetchSeatData = async () => {
-      const data = await getSeatData();
-      setSeats(data.seats);
-      setSeatTimers(data.seatTimers);
+      try {
+        const data = await getSeatData();
+        setSeats(data.seats);
+        setSeatTimers(data.seatTimers);
+      } catch (error) {
+        console.error('Error fetching seat data:', error);
+        toast.error('データの取得に失敗しました');
+      }
     };
     fetchSeatData();
   }, []);
 
   // 席の状態を切替え
   const toggleSeat = (index: number) => {
-    const newSeats = [...seats];
-    const newSeatTimers = [...seatTimers];
+    setSeats((prevSeats) => {
+      const updatedSeats = [...prevSeats];
+      updatedSeats[index] = !updatedSeats[index];
+      return updatedSeats;
+    });
 
-    if (newSeats[index]) {
-      newSeats[index] = false;
-      newSeatTimers[index] = 0; // 滞在時間をリセット
-    } else {
-      newSeats[index] = true;
-      newSeatTimers[index] = Date.now(); // 現在時刻を記録
-    }
+    setSeatTimers((prevTimers) => {
+      const updatedTimers = [...prevTimers];
+      updatedTimers[index] = seats[index] ? 0 : Date.now();
+      return updatedTimers;
+    });
 
-    setSeats(newSeats);
-    setSeatTimers(newSeatTimers);
-    saveSeatData(newSeats, newSeatTimers); // Firestoreに保存
-
-    checkSeatStatus(newSeats);
+    saveSeatData(seats, seatTimers); // Firestoreに保存
+    checkSeatStatus(seats);
   };
 
   useEffect(() => {
-    // 滞在時間を1秒ごとに更新
     const interval = setInterval(() => {
-      setSeatTimers((prevSeatTimers) => {
-        return prevSeatTimers.map((startTime, index) => {
-          if (seats[index]) {
-            return startTime; // 座っている場合は開始時間を保持
-          }
-          return 0; // 空席は0
-        });
-      });
+      setSeatTimers((prevSeatTimers) =>
+        prevSeatTimers.map((startTime, index) => (seats[index] ? startTime : 0))
+      );
     }, 1000);
 
     return () => clearInterval(interval);
