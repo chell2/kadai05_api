@@ -19,9 +19,6 @@ const SeatManager = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [lastHelpCondition, setLastHelpCondition] = useState(null); // 最後に送った条件
-  const [seatsOccupied, setSeatsOccupied] = useState(0); // 占有されている席の数
-  const totalSeats = 100; // 座席の総数
 
   useEffect(() => {
     if (
@@ -61,6 +58,22 @@ const SeatManager = () => {
 
     checkSeatStatus(newSeats);
   };
+
+  useEffect(() => {
+    // 滞在時間を1秒ごとに更新
+    const interval = setInterval(() => {
+      setSeatTimers((prevSeatTimers) => {
+        return prevSeatTimers.map((startTime, index) => {
+          if (seats[index]) {
+            return startTime; // 座っている場合は開始時間を保持
+          }
+          return 0; // 空席は0
+        });
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [seats]);
 
   // 全席リセット
   const resetAllSeats = () => {
